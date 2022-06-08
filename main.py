@@ -11,10 +11,14 @@ def afficherPlateau(p,gagnant=None):
         print("Partie terminée : le joueur " + gagnant + " a gagné!")
 
 def choisirCase():
-    case = int(input("Choissiez une case entre 1 et 9 ! :"))
+    case = int(input("Choissiez une case entre 1 et 9 ! : "))
     while  case < 1 or case > 9:
-        case = int(input("Choissiez une case entre 1 et 9 ! :"))
+        case = int(input("Choissiez une case entre 1 et 9 ! : "))
     return case
+
+def viderPlateau():
+    for i in range(9):
+        plateau[i] = " "
 
 def morpion():
     joueur = "X"
@@ -22,7 +26,7 @@ def morpion():
 
     while True:
         afficherPlateau(plateau)
-        print("Tour du joueur " + joueur + ". Jouez en choisissant un nombre de 1 à 9")
+        print("Tour du joueur " + joueur + ". Jouez en choisissant un nombre de 1 à 9 !")
         res = choisirCase()
 
         if plateau[res-1] != " ":
@@ -41,11 +45,21 @@ def morpion():
         or plateau[0] == plateau[4] == plateau[8] != " "\
         or plateau[6] == plateau[4] == plateau[2] != " ":
             afficherPlateau(plateau,joueur)
-            break
+            rejouer = input("Voulez-vous rejouer ? : Y pour Oui | N pour Non")
+            if rejouer == 'Y':
+                viderPlateau()
+                tour = 0
+            else:
+                break
 
         if tour == 9:
             print("Egalité !")
-            break
+            rejouer = input("Voulez-vous rejouer ? : Y pour Oui | N pour Non")
+            if rejouer == 'Y':
+                viderPlateau()
+                tour = 0
+            else:
+                break
 
         joueur = "O" if joueur == "X" else "X"
 
